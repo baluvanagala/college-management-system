@@ -1,0 +1,137 @@
+.sidebar {
+  width: 280px;
+  background: #111111 !important; /* Force dark background */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0 10px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 32px;
+  margin-bottom: 24px; /* Reduced from 48px */
+}
+
+
+.brand-logo-circle {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-logo {
+  font-size: 1.8rem;
+}
+
+.sidebar-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-section-label {
+  padding: 0 32px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #4a4a4a;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px; /* Reduced */
+  opacity: 0.8;
+}
+
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 0px; /* Hide scrollbar but keep functionality */
+  background: transparent;
+}
+
+.sidebar-nav {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+.sidebar-link {
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 32px; /* Reduced from 16px */
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  border-left: 4px solid transparent;
+}
+
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+}
+
+.sidebar-link.active {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-left: 4px solid var(--primary);
+}
+
+
+.sidebar-icon {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  width: 24px;
+  text-align: center;
+}
+
+.sidebar-logout-btn {
+  margin: 20px 24px 10px 24px; /* Reduced top and bottom margins */
+  flex-shrink: 0;
+  padding: 12px;
+  background: transparent;
+  color: #eee;
+  border: 1px solid #444;
+
+
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: var(--transition);
+}
+
+.sidebar-logout-btn:hover {
+  background: #ff4d4d;
+  color: white;
+  border-color: #ff4d4d;
+  box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+}
