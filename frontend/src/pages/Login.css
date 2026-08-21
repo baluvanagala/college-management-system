@@ -1,0 +1,155 @@
+/* ===== ROOT COLORS ===== */
+:root {
+  --primary: #4f46e5;      /* Indigo */
+  --secondary: #06b6d4;    /* Cyan */
+  --bg-main: #f1f5f9;      /* Light background */
+  --card-bg: #ffffff;      /* White card */
+  --text-main: #1e293b;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --error: #dc2626;
+}
+
+/* ===== PAGE ===== */
+.login-page {
+  height: 100vh;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-home:hover {
+  text-decoration: underline;
+}
+
+/* ===== CARD ===== */
+.login-card {
+  width: 360px;
+  padding: 30px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* ===== BRAND ===== */
+.login-brand {
+  margin-bottom: 25px;
+}
+
+.login-logo {
+  font-size: 2rem;
+}
+
+.brand-font {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.login-brand p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ===== FORM ===== */
+.login-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+  color: var(--text-secondary);
+}
+
+.form-input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  outline: none;
+  transition: 0.3s;
+  font-size: 0.9rem;
+  background-color: #f8f8f6;
+  color: black;
+}
+
+.form-input:focus {
+  border-color: var(--primary);
+}
+
+/* ===== BUTTON ===== */
+.btn {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #4338ca;
+}
+
+/* ===== ERROR ===== */
+.form-error {
+  background: #fee2e2;
+  color: var(--error);
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ===== FOOTER ===== */
+.login-footer-text {
+  margin-top: 15px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.login-footer-text span {
+  color: var(--primary);
+  cursor: pointer;
+}
+
+/* ===== ANIMATION ===== */
+.animate-fade {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
