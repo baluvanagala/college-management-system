@@ -167,5 +167,10 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
-    "https://your-react-app.onrender.com",
+    origin.strip()
+    for origin in os.getenv(
+        "CORS_ALLOWED_ORIGINS",
+        "https://your-react-app.onrender.com"
+    ).split(",")
+    if origin.strip()
 ]
