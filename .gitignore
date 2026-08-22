@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.pyc
 __pycache__/
 *.sqlite3
@@ -9,3 +10,15 @@ staticfiles/
 media/
 dist/
 build/
+=======
+node_modules/
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+.env
+dist/
+build/
+>>>>>>> e368bebd21e94584f29e65d99479331b6dc5ace3
