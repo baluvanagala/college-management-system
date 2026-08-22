@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "college-management-system-0haw.onrender.com",
+    "https://college-management-system-0haw.onrender.com/",
 ]
 
 
