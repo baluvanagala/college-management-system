@@ -38,6 +38,7 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
+      {/* Brand */}
       <div className="sidebar-brand">
         <div className="brand-logo-circle">
           <span className="sidebar-logo">🏛️</span>
@@ -47,25 +48,27 @@ export default function Sidebar() {
 
       <div className="sidebar-section-label">Menu</div>
 
+      {/* Nav */}
       <nav className="sidebar-nav">
         {links.map(link => (
           <NavLink
             key={link.to}
             to={link.to}
             end={link.end}
+            title={link.label}            /* tooltip when collapsed */
             className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
           >
             <span className="sidebar-icon">{link.icon}</span>
-            <span>{link.label}</span>
+            <span className="sidebar-label">{link.label}</span>
           </NavLink>
         ))}
       </nav>
 
-      <button className="sidebar-logout-btn" onClick={handleLogout}>
+      {/* Logout */}
+      <button className="sidebar-logout-btn" onClick={handleLogout} title="Sign Out">
         <span className="sidebar-icon">🚪</span>
-        <span>Sign Out</span>
+        <span className="sidebar-label">Sign Out</span>
       </button>
     </aside>
   )
 }
-

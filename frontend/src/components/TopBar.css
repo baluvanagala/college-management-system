@@ -112,3 +112,33 @@
   font-size: 1.2rem;
   padding-right: 10px;
 }
+
+/* ── Theme toggle button ────────────────────── */
+.theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: rotate(15deg) scale(1.1);
+}
+
+.theme-toggle-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* ── Dark mode: TopBar ──────────────────────── */
+[data-theme="dark"] .top-bar {
+  background: linear-gradient(90deg, #1a0030, #2a0050);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+

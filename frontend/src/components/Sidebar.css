@@ -1,137 +1,290 @@
+/* ──────────────────────────────────────────────
+   Instagram-style collapsible sidebar
+   Colors: White bg · Black text · Gray hover
+   Collapsed: 72px  →  Expanded (hover): 244px
+────────────────────────────────────────────── */
+
 .sidebar {
-  width: 280px;
-  background: #111111 !important; /* Force dark background */
+  width: 72px;
+  background: #ffffff;                  /* Instagram: pure white */
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 40px 0 10px 0;
+  padding: 20px 0 16px 0;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 100;
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 200;
+  border-right: 1px solid #dbdbdb;     /* Instagram: very light gray border */
+  overflow: hidden;
+
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width;
 }
 
+.sidebar:hover {
+  width: 244px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+}
 
+/* ── Brand ─────────────────────────────────── */
 .sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 32px;
-  margin-bottom: 24px; /* Reduced from 48px */
+  gap: 14px;
+  padding: 0 16px;
+  margin-bottom: 24px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-
 .brand-logo-circle {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  border-radius: 12px;                  /* Instagram gradient-inspired logo bg */
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
 }
 
 .sidebar-logo {
-  font-size: 1.8rem;
+  font-size: 1.35rem;
+  line-height: 1;
 }
 
 .sidebar-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  color: white;
-  letter-spacing: -0.02em;
+  color: #000000;                       /* Instagram: black text */
+  letter-spacing: -0.03em;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.18s ease 0.06s, transform 0.22s ease 0.06s;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
+.sidebar:hover .sidebar-title {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Section label ──────────────────────────── */
 .sidebar-section-label {
-  padding: 0 32px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: #4a4a4a;
+  padding: 0 20px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #c7c7c7;                       /* very light gray — Instagram muted */
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 12px; /* Reduced */
-  opacity: 0.8;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.16s ease 0.05s;
 }
 
+.sidebar:hover .sidebar-section-label {
+  opacity: 1;
+}
 
+/* ── Nav links ──────────────────────────────── */
 .sidebar-nav {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-bottom: 10px;
+  overflow-x: hidden;
+  padding: 4px 8px 8px 8px;
+  scrollbar-width: none;
 }
-
-.sidebar-nav::-webkit-scrollbar {
-  width: 0px; /* Hide scrollbar but keep functionality */
-  background: transparent;
-}
-
-.sidebar-nav {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
+.sidebar-nav::-webkit-scrollbar { display: none; }
 
 .sidebar-link {
-
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 12px 32px; /* Reduced from 16px */
-  color: var(--sidebar-text);
+  gap: 0;
+  padding: 10px 4px;
+  color: #000000;                       /* Instagram: black icons/text */
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: var(--transition);
-  border-left: 4px solid transparent;
+  font-weight: 400;                     /* Instagram uses regular weight */
+  font-size: 1rem;
+  border-radius: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2px;
+  transition: background 0.18s ease, font-weight 0.15s ease;
 }
 
-
 .sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.03);
-  color: white;
+  background: #f0f0f0;                  /* Instagram: very subtle gray hover */
 }
 
 .sidebar-link.active {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: #ffffff !important;
-  border-left: 4px solid var(--primary);
-}
-
-
-.sidebar-icon {
-  font-size: 1.2rem;
-  opacity: 0.8;
-  width: 24px;
-  text-align: center;
-}
-
-.sidebar-logout-btn {
-  margin: 20px 24px 10px 24px; /* Reduced top and bottom margins */
-  flex-shrink: 0;
-  padding: 12px;
+  font-weight: 700;                     /* Instagram bolds the active item */
   background: transparent;
-  color: #eee;
-  border: 1px solid #444;
+}
 
+/* ── Icon ───────────────────────────────────── */
+.sidebar-icon {
+  font-size: 1.5rem;                    /* Instagram uses bigger icons */
+  min-width: 56px;
+  width: 56px;
+  text-align: center;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
 
+/* Collapsed: icon is centered in the full 72px sidebar */
+/* We need to offset because the link has 4px padding + 8px nav padding */
+.sidebar-nav {
+  padding: 4px 0 8px 0;
+}
+
+.sidebar-link {
+  padding: 10px 0;
+  border-radius: 12px;
+  margin: 1px 8px;
+}
+
+.sidebar-link:hover .sidebar-icon {
+  transform: scale(1.1);
+}
+
+.sidebar-link.active .sidebar-icon {
+  transform: scale(1.0);
+}
+
+/* ── Link label text ────────────────────────── */
+.sidebar-label {
+  font-size: 1rem;
+  color: #000000;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.18s ease 0.07s, transform 0.2s ease 0.07s;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar:hover .sidebar-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Active label slightly bolder */
+.sidebar-link.active .sidebar-label {
+  font-weight: 700;
+}
+
+/* ── Active bar (left edge) — hidden on collapsed ── */
+.sidebar-link.active::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  border-radius: 0 4px 4px 0;
+  background: #000000;                  /* Instagram: black indicator bar */
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.sidebar:hover .sidebar-link.active::before {
+  opacity: 1;
+}
+
+/* ── Logout button ──────────────────────────── */
+.sidebar-logout-btn {
+  flex-shrink: 0;
+  padding: 10px 0;
+  margin: 4px 8px 10px 8px;
+  background: transparent;
+  color: #000000;
+  border: none;
   border-radius: 12px;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 400;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  transition: var(--transition);
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
 .sidebar-logout-btn:hover {
-  background: #ff4d4d;
-  color: white;
-  border-color: #ff4d4d;
-  box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+  background: #fff0f0;
+  color: #e0454a;
 }
+
+.sidebar-logout-btn:hover .sidebar-icon {
+  transform: scale(1.1);
+}
+
+/* icon inside logout — same centering as nav icons */
+.sidebar-logout-btn .sidebar-icon {
+  min-width: 56px;
+  width: 56px;
+}
+
+/* ════════════════════════════════════════════
+   DARK MODE — Sidebar
+════════════════════════════════════════════ */
+[data-theme="dark"] .sidebar {
+  background: #1a1d27;
+  border-right-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .sidebar:hover {
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .sidebar-title {
+  color: #f0f2f5;
+}
+
+[data-theme="dark"] .sidebar-section-label {
+  color: #3a3d4a;
+}
+
+[data-theme="dark"] .sidebar-link {
+  color: #8a95a8;
+}
+
+[data-theme="dark"] .sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f0f2f5;
+}
+
+[data-theme="dark"] .sidebar-link.active {
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 0, 160, 0.1);
+}
+
+[data-theme="dark"] .sidebar-link.active::before {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .sidebar-label {
+  color: #f0f2f5;
+}
+
+[data-theme="dark"] .sidebar-logout-btn {
+  color: #8a95a8;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .sidebar-logout-btn:hover {
+  background: rgba(255, 77, 77, 0.12);
+  color: #ff6b6b;
+  border-color: rgba(255, 77, 77, 0.25);
+}
+

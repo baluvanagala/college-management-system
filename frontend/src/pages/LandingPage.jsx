@@ -57,15 +57,15 @@ export default function LandingPage() {
       {/* Hero Slider */}
       <section className="hero-slider">
         {slides.map((slide, index) => (
-          <div key={index} className={`slide ${index === currentSlide ? 'active' : ''}`}
-               style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url(${slide.image})` }}>
-            <div className="container slide-content animate-fade">
+          <div
+            key={index}
+            className={`slide ${index === currentSlide ? 'active' : ''}`}
+            style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url(${slide.image})` }}
+          >
+            {/* Removed animate-fade: it re-fires the keyframe on every slide change causing jank */}
+            <div className="container slide-content">
               <h1 className="slide-title">{slide.title}</h1>
               <p className="slide-desc">{slide.desc}</p>
-              {/* <div className="slide-actions">
-                <button className="btn btn-primary">Apply Now</button>
-                <button className="btn btn-outline">Explore Programs</button>
-              </div> */}
             </div>
           </div>
         ))}

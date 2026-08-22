@@ -29,10 +29,14 @@ class LoginView(APIView):
 
         refresh = RefreshToken.for_user(user)
 
+        role = user.role
+        if user.role in ('admin', 'hod'):
+            role = 'admin'
+
         data = {
             "access": str(refresh.access_token),
             "refresh": str(refresh),
-            "role": user.role,
+            "role": role,
             "username": user.username,
             "user_id": user.id,
         }
@@ -83,7 +87,7 @@ class StudentViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == "admin":
+        if user.role in ("admin", "hod"):
             qs = Student.objects.all()
         elif user.role == "faculty":
             qs = Student.objects.filter(department=user.faculty_profile.department)
@@ -127,7 +131,7 @@ class FacultyViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == "admin":
+        if user.role in ("admin", "hod"):
             return Faculty.objects.all()
         elif user.role == "faculty":
             return Faculty.objects.filter(user=user)
@@ -142,7 +146,7 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == "admin":
+        if user.role in ("admin", "hod"):
             return Department.objects.all()
         if user.role == "faculty":
             return Department.objects.filter(faculties__user=user)
@@ -172,7 +176,7 @@ class LeaveViewSet(ModelViewSet):
         if not user.is_authenticated:
             return Leave.objects.none()
 
-        if user.role == "admin":
+        if user.role in ("admin", "hod"):
             return Leave.objects.all().order_by('-created_at')
         
         elif user.role == "faculty":
@@ -229,7 +233,7 @@ class FeeViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == "admin":
+        if user.role in ("admin", "hod"):
             return Fee.objects.all()
         elif user.role == "student":
             return Fee.objects.filter(student__user=user)
@@ -244,7 +248,7 @@ class DashboardStatsView(APIView):
         data = {}
         user = request.user
 
-        if user.role == "admin":
+        if user.role in ("admin", "hod"):
             data["total_students"] = Student.objects.count()
             data["total_faculty"] = Faculty.objects.count()
             data["total_departments"] = Department.objects.count()
@@ -321,7 +325,7 @@ class SemesterViewSet(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
 
-        if user.role == "admin":
+        if user.role in ("admin", "hod"):
             queryset = Semester.objects.all()
         elif user.role == "faculty":
             queryset = Semester.objects.filter(

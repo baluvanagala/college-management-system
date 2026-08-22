@@ -1,8 +1,10 @@
 import './TopBar.css'
 import { useAuth } from '../context/useAuth'
+import { useTheme } from '../context/useTheme'
 
 export default function TopBar() {
   const { auth } = useAuth()
+  const { dark, toggleTheme } = useTheme()
 
   return (
     <header className="top-bar">
@@ -14,6 +16,18 @@ export default function TopBar() {
       </div>
       
       <div className="top-bar-actions">
+        {/* Dark mode toggle */}
+        <button
+          className="icon-btn theme-toggle-btn"
+          onClick={toggleTheme}
+          title={dark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          aria-label="Toggle dark mode"
+        >
+          <span className="icon theme-toggle-icon">
+            {dark ? '☀️' : '🌙'}
+          </span>
+        </button>
+
         <button className="icon-btn" title="Notifications">
           <span className="icon">🔔</span>
         </button>

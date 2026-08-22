@@ -18,4 +18,5 @@ router.register("users", UserViewSet, basename='user')
 urlpatterns = [
     path("", include(router.urls)),
     path("dashboard/", DashboardStatsView.as_view(), name='dashboard'),
+    
 ]

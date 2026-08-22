@@ -29,11 +29,34 @@
   --sidebar-active: #ffffff;
   
   /* Transitions & Effects */
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Use specific props instead of 'all' to let GPU skip unused property tracking */
+  --transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-premium: 0 4px 20px rgba(0, 0, 0, 0.05);
   --glass-blur: blur(12px);
   --radius: 12px;
 }
+
+/* ════════════════════════════════════════════
+   DARK MODE — all tokens override here
+   Applied via data-theme="dark" on <html>
+════════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg-deep:  #0f1117;           /* page background */
+  --bg-main:  #0f1117;
+  --bg-card:  #1a1d27;           /* card / panel surfaces */
+  --bg-glass: rgba(26, 29, 39, 0.95);
+  --border-glass: rgba(255, 255, 255, 0.07);
+
+  --text-primary:   #f0f2f5;
+  --text-secondary: #8a95a8;
+  --text-muted:     #545d6b;
+
+  --sidebar-text:   #8a95a8;
+  --sidebar-active: #ffffff;
+
+  --shadow-premium: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
 
 
 * {
@@ -66,17 +89,18 @@ h1, h2, h3, h4, .brand-font {
 
 .glass-card {
   background: var(--bg-card);
-  backdrop-filter: var(--glass-blur);
+  /* Removed backdrop-filter — it forces GPU layer for every card, causing layout thrash */
   border: 1px solid var(--border-glass);
   border-radius: var(--radius);
   box-shadow: var(--shadow-premium);
-  transition: var(--transition);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.15);
+  will-change: transform;
 }
 
 /* Animations */
@@ -97,8 +121,9 @@ h1, h2, h3, h4, .brand-font {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  /* Reduced blur from 10px → 6px for cheaper composite */
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -392,7 +417,7 @@ tr:hover td {
 
 
 .main-content {
-  margin-left: 280px;
+  margin-left: 72px; /* matches collapsed sidebar width; sidebar overlays on hover like Instagram */
   width: auto;
   padding: 32px 12px; /* Reduced to 12px to maximize space */
   background: var(--bg-deep);
@@ -529,3 +554,200 @@ tr:hover td {
   color: var(--text-secondary);
 }
 
+/* ════════════════════════════════════════════
+   DARK MODE — element overrides
+════════════════════════════════════════════ */
+
+/* Smooth transition when toggling */
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ── Page / Layout ─────────────────────────── */
+[data-theme="dark"] body,
+[data-theme="dark"] .main-content {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+}
+
+/* ── Cards ─────────────────────────────────── */
+[data-theme="dark"] .glass-card,
+[data-theme="dark"] .card,
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .profile-info-card {
+  background: var(--bg-card);
+  border-color: var(--border-glass);
+  box-shadow: var(--shadow-premium);
+}
+
+[data-theme="dark"] .glass-card:hover {
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Glass (nav / footer) ───────────────────── */
+[data-theme="dark"] .glass {
+  background: rgba(15, 17, 23, 0.97);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Tables ─────────────────────────────────── */
+[data-theme="dark"] .table-wrapper {
+  background: var(--bg-card);
+  border-color: var(--border-glass);
+}
+
+[data-theme="dark"] th {
+  background: #12151f;
+  color: var(--text-secondary);
+  border-bottom-color: var(--border-glass);
+}
+
+[data-theme="dark"] td {
+  border-top-color: var(--border-glass);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] tr:hover td {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+/* ── Forms & Inputs ─────────────────────────── */
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .form-textarea,
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .filter-select {
+  background: #12151f;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .form-select:focus,
+[data-theme="dark"] .form-textarea:focus,
+[data-theme="dark"] .search-input:focus,
+[data-theme="dark"] .filter-select:focus {
+  background: #1a1d27;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(255, 0, 160, 0.1);
+}
+
+[data-theme="dark"] .form-input::placeholder,
+[data-theme="dark"] .search-input::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .form-actions {
+  border-top-color: var(--border-glass);
+}
+
+/* ── Scrollbar ───────────────────────────────── */
+[data-theme="dark"] ::-webkit-scrollbar-track { background: #0f1117; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #2a2d3a; border-radius: 4px; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: #3a3d4a; }
+
+/* ── Section labels / headers ────────────────── */
+[data-theme="dark"] .page-header h1,
+[data-theme="dark"] .header-title h1 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .subtitle,
+[data-theme="dark"] .card-title {
+  color: var(--text-secondary);
+}
+
+/* ── About section (LandingPage) ─────────────── */
+[data-theme="dark"] .section {
+  background-color: #0f1117;
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .about-grid {
+  background-color: #0f1117;
+}
+
+[data-theme="dark"] .about-card {
+  background-color: #1a1d27;
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .about-card p {
+  color: var(--text-secondary);
+}
+
+/* ── Footer (LandingPage) ────────────────────── */
+[data-theme="dark"] .footer {
+  background: rgba(15, 17, 23, 0.97);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .footer-info p,
+[data-theme="dark"] .footer-contact p,
+[data-theme="dark"] .footer-links a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .footer-links h4,
+[data-theme="dark"] .footer-contact h4 {
+  color: var(--text-primary);
+}
+
+/* ── Landing nav ──────────────────────────────── */
+[data-theme="dark"] .landing-nav {
+  background-color: rgba(15, 17, 23, 0.97) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+[data-theme="dark"] .brand-name {
+  background: linear-gradient(135deg, #ff00a0, #ff8c00);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="dark"] .nav-links a {
+  color: var(--text-secondary);
+}
+
+/* ── Login / modal ─────────────────────────────── */
+[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* ── Stat cards ────────────────────────────────── */
+[data-theme="dark"] .stat-label {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .stat-value {
+  color: var(--text-primary);
+}
+
+/* ── Profile fields ────────────────────────────── */
+[data-theme="dark"] .profile-field {
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .profile-info-card .card-title {
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .profile-field label {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .profile-field span {
+  color: var(--text-primary);
+}
+
+/* ── Select dropdown arrow fix in dark ─────────── */
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .filter-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238a95a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}

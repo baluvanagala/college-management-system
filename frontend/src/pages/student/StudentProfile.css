@@ -427,3 +427,36 @@
 .profile-info-card:focus-within {
   box-shadow: 0 0 0 3px rgba(255, 0, 160, 0.1), var(--shadow-premium);
 }
+
+/* ════════════════════════════════════════════
+   DARK MODE — StudentProfile
+════════════════════════════════════════════ */
+[data-theme="dark"] .profile-info-card .card-title {
+  color: #f0f2f5;
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .profile-field {
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .profile-field label {
+  color: #8a95a8;
+}
+
+[data-theme="dark"] .profile-field span {
+  color: #f0f2f5;
+}
+
+[data-theme="dark"] .profile-name {
+  color: #f0f2f5;
+}
+
+[data-theme="dark"] .profile-role {
+  color: #8a95a8;
+}
+
+[data-theme="dark"] .loading::before {
+  border-color: rgba(255, 255, 255, 0.08);
+  border-top-color: var(--primary);
+}

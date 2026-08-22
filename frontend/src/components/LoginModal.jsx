@@ -21,7 +21,7 @@ export default function LoginModal({ isOpen, onClose }) {
       const res = await api.post('/login/', form)
       login(res.data)
       const role = res.data.role
-      if (role === 'admin') navigate('/admin')
+      if (role === 'admin' || role === 'hod') navigate('/admin')
       else if (role === 'faculty') navigate('/faculty')
       else navigate('/student')
       onClose()

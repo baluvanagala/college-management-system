@@ -1,6 +1,7 @@
 import './index.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthProvider'
+import { ThemeProvider } from './context/ThemeProvider'
 import { useAuth } from './context/useAuth'
 import ProtectedRoute from './components/ProtectedRoute'
 import Sidebar from './components/Sidebar'
@@ -38,7 +39,7 @@ import MyResults from './pages/student/MyResults'
 function RoleRedirect() {
   const { auth } = useAuth()
   if (!auth) return <Navigate to="/login" replace />
-  if (auth.role === 'admin') return <Navigate to="/admin" replace />
+  if (auth.role === 'admin' || auth.role === 'hod') return <Navigate to="/admin" replace />
   if (auth.role === 'faculty') return <Navigate to="/faculty" replace />
   return <Navigate to="/student" replace />
 }
@@ -58,6 +59,7 @@ function DashboardLayout({ children }) {
 
 export default function App() {
   return (
+    <ThemeProvider>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -96,5 +98,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </ThemeProvider>
   )
 }
