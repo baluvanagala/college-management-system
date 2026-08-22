@@ -18,6 +18,7 @@ from pathlib import Path
 from datetime import timedelta
 import os
 import dj_database_url
+from dotenv import load_dotenv
 
 
 
@@ -27,6 +28,9 @@ import dj_database_url
 # --------------------------------------------------
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR.parent / ".env")
+load_dotenv(BASE_DIR / ".env")
+load_dotenv()
 
 
 # --------------------------------------------------
@@ -39,7 +43,10 @@ DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.getenv("ALLOWED_HOSTS", "").split(",")
+    for host in os.getenv(
+        "ALLOWED_HOSTS",
+        "localhost,127.0.0.1,college-management-system-0haw.onrender.com"
+    ).split(",")
     if host.strip()
 ]
 
@@ -196,6 +203,12 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 STATICFILES_DIRS = []
 if (BASE_DIR / "static").exists():
     STATICFILES_DIRS.append(str(BASE_DIR / "static"))
@@ -253,5 +266,5 @@ AUTHENTICATION_BACKENDS = [
 # --------------------------------------------------
 
 CORS_ALLOWED_ORIGINS = [
-    "https://your-react-app.onrender.com",
+    "https://college-management-frontend.onrender.com",
 ]
